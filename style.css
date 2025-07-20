@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     background: white;
     border-radius: 10px;
@@ -29,6 +29,38 @@ h1 {
     font-size: 2.5em;
 }
 
+
+/* Payroll Summary - New Addition */
+
+.payroll-summary {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.payroll-card {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+.payroll-card h3 {
+    color: #495057;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.payroll-card span {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4c4c5f;
+}
+
 .form-section {
     padding: 30px;
     border-bottom: 2px solid #f0f0f0;
@@ -40,7 +72,17 @@ h1 {
     font-size: 1.8em;
 }
 
+
+/* Form Row Layout - New Addition */
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
 .form-group {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,6 +141,106 @@ button:hover {
     transform: translateY(-2px);
 }
 
+
+/* Search and Filter Section - New Addition */
+
+.search-filter-section {
+    padding: 30px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.search-filter-section h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.search-filter-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: end;
+}
+
+.search-group,
+.filter-group,
+.range-group,
+.action-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-group label,
+.filter-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.search-group input,
+.filter-group input,
+.filter-group select {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.search-group input:focus,
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.range-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.range-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    width: 100%;
+}
+
+.range-group input {
+    flex: 1;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+}
+
+.range-group span {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.action-group {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.action-group button {
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+#deleteLowSalary {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+#clearFilters {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+}
+
 .list-section {
     padding: 30px;
 }
@@ -142,6 +284,33 @@ tr:hover {
     background-color: #f8f9fa;
 }
 
+
+/* Employee Name with Badges - New Addition */
+
+.employee-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.high-salary {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge.has-bonus {
+    background: #f8d7da;
+    color: #721c24;
+}
+
 .status {
     padding: 5px 10px;
     border-radius: 20px;
@@ -151,51 +320,182 @@ tr:hover {
 }
 
 .status.active {
-    /* background: #d4edda; */
+    background: #d4edda;
     color: #155724;
 }
 
 .status.on-leave {
-    /* background: #fff3cd; */
+    background: #fff3cd;
     color: #856404;
 }
 
 .status.terminated {
-    /* background: #f8d7da; */
+    background: #f8d7da;
     color: #721c24;
+}
+
+
+/* Salary and Bonus Formatting - New Addition */
+
+.salary,
+.bonus {
+    font-weight: 600;
+    color: #28a745;
+}
+
+.bonus.zero {
+    color: #6c757d;
 }
 
 .action-btn {
     padding: 5px 10px;
     margin: 0 2px;
     border: none;
-    border-radius: 3px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 12px;
+    transition: all 0.2s ease;
 }
 
 .edit-btn {
     background: #5a4aeb;
     color: white;
-    border-radius: 20px;
+}
+
+.edit-btn:hover {
+    background: #4a3ad1;
 }
 
 .delete-btn {
     background: #dc3545;
     color: white;
-    border-radius: 20px;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+
+/* Bonus Button - New Addition */
+
+.bonus-btn {
+    background: #28a745;
+    color: white;
+}
+
+.bonus-btn:hover {
+    background: #218838;
 }
 
 .restore-btn {
     background: #28a745;
     color: white;
-    border-radius: 20px;
+}
+
+.restore-btn:hover {
+    background: #218838;
 }
 
 .permanent-delete-btn {
     background: #6c757d;
     color: white;
-    border-radius: 20px;
+}
+
+.permanent-delete-btn:hover {
+    background: #5a6268;
+}
+
+
+/* Modal Styles - New Addition */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #4c4c5f 0%, #261e2e 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close:hover {
+    color: #f8f9fa;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-body p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.bonus-preview {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.bonus-preview p {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.modal-footer button {
+    margin: 0;
+    padding: 10px 20px;
+}
+
+#cancelBonus {
+    background: #6c757d;
+}
+
+#cancelBonus:hover {
+    background: #5a6268;
 }
 
 #trashList {
@@ -210,7 +510,45 @@ tr:hover {
 }
 
 
+/* Animations - New Addition */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
 /* Responsive Design */
+
+@media (max-width: 1200px) {
+    .container {
+        margin: 10px;
+    }
+    .search-filter-row {
+        flex-wrap: wrap;
+    }
+    .search-group,
+    .filter-group,
+    .range-group,
+    .action-group {
+        min-width: 200px;
+    }
+}
 
 @media (max-width: 768px) {
     .container {
@@ -221,9 +559,28 @@ tr:hover {
         font-size: 2em;
         padding: 20px;
     }
+    .payroll-summary {
+        flex-direction: column;
+        gap: 15px;
+    }
     .form-section,
+    .search-filter-section,
     .list-section {
         padding: 20px;
+    }
+    .form-row {
+        flex-direction: column;
+    }
+    .search-filter-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .range-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .action-group {
+        flex-direction: column;
     }
     .list-header {
         flex-direction: column;
@@ -235,5 +592,32 @@ tr:hover {
     th,
     td {
         padding: 10px 5px;
+    }
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+    .modal-footer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section,
+    .search-filter-section,
+    .list-section {
+        padding: 15px;
+    }
+    table {
+        font-size: 12px;
+    }
+    th,
+    td {
+        padding: 8px 5px;
+    }
+    .action-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+        margin: 1px;
     }
 }

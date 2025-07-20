@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Employee Management</title>
+    <title>Enhanced Employee Management</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -11,52 +11,129 @@
     <div class="container">
       <h1>Employee Management Dashboard</h1>
 
+      <!-- Payroll Summary -->
+      <div class="payroll-summary">
+        <div class="payroll-card">
+          <h3>Total Payroll</h3>
+          <span id="totalPayroll">$0</span>
+        </div>
+        <div class="payroll-card">
+          <h3>Total Employees</h3>
+          <span id="totalEmployees">0</span>
+        </div>
+        <div class="payroll-card">
+          <h3>High Earners</h3>
+          <span id="highEarners">0</span>
+        </div>
+      </div>
+
       <!-- Employee Form -->
       <div class="form-section">
+        <h2>Add Employee</h2>
         <form id="employeeForm">
-          <div class="form-group">
-            <h2>Add Employee</h2>
-            <label>Name</label>
-            <input type="text" id="name" required />
-            <span class="error" id="nameError"></span>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name:</label>
+              <input type="text" id="name" required />
+              <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Role:</label>
+              <input type="text" id="role" required />
+              <span class="error" id="roleError"></span>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Role</label>
-            <input type="text" id="role" required />
-            <span class="error" id="roleError"></span>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Salary:</label>
+              <input type="number" id="salary" min="0" step="100" required />
+              <span class="error" id="salaryError"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Status:</label>
+              <select id="status" required>
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="On Leave">On Leave</option>
+                <option value="Terminated">Terminated</option>
+              </select>
+              <span class="error" id="statusError"></span>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Status</label>
-            <select id="status" required>
-              <option value="">Select Status</option>
+          <button type="submit">Add Employee</button>
+        </form>
+      </div>
+
+      <!-- Search and Filter Section -->
+      <div class="search-filter-section">
+        <h2>Search & Filter</h2>
+        <div class="search-filter-row">
+          <div class="search-group">
+            <label>Search by Name:</label>
+            <input
+              type="text"
+              id="searchName"
+              placeholder="Enter employee name..."
+            />
+          </div>
+
+          <div class="filter-group">
+            <label>Filter by Role:</label>
+            <input type="text" id="filterRole" placeholder="Enter role..." />
+          </div>
+
+          <div class="filter-group">
+            <label>Filter by Status:</label>
+            <select id="filterStatus">
+              <option value="">All Status</option>
               <option value="Active">Active</option>
               <option value="On Leave">On Leave</option>
               <option value="Terminated">Terminated</option>
             </select>
-            <span class="error" id="statusError"></span>
+          </div>
+        </div>
+
+        <div class="search-filter-row">
+          <div class="range-group">
+            <label>Salary Range:</label>
+            <input type="number" id="minSalary" placeholder="Min" min="0" />
+            <span>to</span>
+            <input type="number" id="maxSalary" placeholder="Max" min="0" />
           </div>
 
-          <div class="form-group">
-            <button type="submit">Add Employee</button>
+          <div class="range-group">
+            <label>Bonus Range:</label>
+            <input type="number" id="minBonus" placeholder="Min" min="0" />
+            <span>to</span>
+            <input type="number" id="maxBonus" placeholder="Max" min="0" />
           </div>
-        </form>
+
+          <div class="action-group">
+            <button id="clearFilters">Clear Filters</button>
+            <button id="deleteLowSalary">Delete Low Salary (≤20K)</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Employee table -->
+      <!-- Employee List -->
       <div class="list-section">
         <div class="list-header">
-          <h2>Employee Info</h2>
+          <h2>Employee List</h2>
           <button id="toggleTrash">Show Trash</button>
         </div>
 
-        <div id="empInfo">
+        <div id="mainList">
           <table id="employeeTable">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Role</th>
+                <th>Salary</th>
+                <th>Bonus</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -75,6 +152,8 @@
               <tr>
                 <th>Name</th>
                 <th>Role</th>
+                <th>Salary</th>
+                <th>Bonus</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -83,6 +162,40 @@
               <!-- Deleted employees will be added here -->
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bonus Modal -->
+    <div id="bonusModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add Bonus</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>Employee: <span id="bonusEmployeeName"></span></p>
+          <p>Current Salary: $<span id="bonusEmployeeSalary"></span></p>
+          <div class="form-group">
+            <label>Bonus Percentage (%):</label>
+            <input
+              type="number"
+              id="bonusPercentage"
+              min="0"
+              max="100"
+              step="0.1"
+              placeholder="Enter percentage"
+            />
+            <span class="error" id="bonusError"></span>
+          </div>
+          <div class="bonus-preview">
+            <p>Bonus Amount: $<span id="bonusAmount">0</span></p>
+            <p>Total with Bonus: $<span id="totalWithBonus">0</span></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="applyBonus">Apply Bonus</button>
+          <button id="cancelBonus">Cancel</button>
         </div>
       </div>
     </div>
